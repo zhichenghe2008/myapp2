@@ -811,7 +811,7 @@ export function Chat() {
             ref={inputRef}
             className={styles["chat-input"]}
             // placeholder={Locale.Chat.Input(submitKey)}
-            placeholder='点击小熊猫选择各种角色和提问样列           1:当共享API Key余额不足或者需要输入授权码时，可直接配置私有API Key独享使用，也可先配置临时共享授权码:123456使用，配置参考：www.chatgptvip.shop.   2:私有Key购买访问www.chatgptvip.shop 在英国申请 大家尽量选择英国接入点登录 避免被封号，默认已创建好api key 可直接使用，非必要不登录最安全！！   3:ChatGpt中文调教指南参考www.chatgptvip.shop.   4:建议收藏www.chatgptvip.shop可获取其他chatgpt站点列表(万一此站点异常 可随机切换其他站点).   5:仅500元完全私有化部署独立chatgpt站点（独立域名 独立key 独立授权码 个人定制联系方式 个人定制广告链接等）联系微信h285426134'
+            placeholder='点击小熊猫选择各种角色和提问样列           1:欢迎加入ChatGpt QQ交流群29898932获取技术支持   2:当共享API Key余额不足或者需要输入授权码时，可直接配置私有API Key独享使用，也可先配置临时共享授权码:123456使用，配置参考：www.chatgptvip.shop   3:ChatGpt中文调教指南参考www.chatgptvip.shop   4:建议收藏www.chatgptvip.shop可获取其他chatgpt站点列表(万一此站点异常 可随机切换其他站点)   5:仅500元完全私有化部署独立chatgpt站点（独立域名 独立key 独立授权码 个人定制联系方式 个人定制广告链接等）联系微信h285426134'
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
             onKeyDown={onInputKeyDown}
