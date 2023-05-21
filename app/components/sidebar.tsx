@@ -145,6 +145,16 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
+        <a href="https://chatgptvip.shop/ai%e5%b7%a5%e5%85%b7%e9%83%a8%e7%bd%b2%e4%bf%9d%e5%a7%86%e7%ba%a7%e6%95%99%e7%a8%8b/" target="_blank">
+          <IconButton
+            icon={<GithubIcon />}
+            text='Ai工具部署保姆级指导书'
+            shadow
+          />
+        </a>
+      </div>
+
+      <div className={styles["sidebar-bar-button"]}>
         <a href="https://www.chatgptvip.shop/chatgpt%e4%b8%ad%e6%96%87%e8%b0%83%e6%95%99%e6%8c%87%e5%8d%97" target="_blank">
           <IconButton
             icon={<GithubIcon />}
