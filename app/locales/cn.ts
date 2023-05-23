@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-      "未授权，请找到设置按钮配置临时授权码:123456,或者填入你自己的API Key独享使用，若没找到可参考： 验证码或api-key手机端设置指引 https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8   验证码或api-key电脑端设置指引 https://docs.qq.com/doc/DZFRWeXNaU25Wc2RM?u=355c394f2acc42e4bec073093f2b96f8",
+    "未授权，请找到设置按钮配置临时授权码:123456,或者填入你自己的API Key独享使用，若没找到配置按钮可参考： (验证码或api-key手机端设置指引 https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8)   (验证码或api-key电脑端设置指引 https://docs.qq.com/doc/DZFRWeXNaU25Wc2RM?u=355c394f2acc42e4bec073093f2b96f8) 还请及时加入到qq服务群29898932或者访问https://www.chatgptvip.shop 扫码加群，大家现在应该很少使用qq，因此加群后即可不再理会，万一站点被墙无法访问时可及时到qq群中获取新的访问点，访问此站点遇到任何问题也可在qq群中反馈",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
