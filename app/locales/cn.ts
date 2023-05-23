@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-      "未授权，请设置临时授权码:123456,或者填入你自己的API Key独享使用，详细设置步骤参考 www.chatgptvip.shop.",
+      "未授权，请找到设置按钮配置临时授权码:123456,或者填入你自己的API Key独享使用，若没找到可参考： 验证码或api-key手机端设置指引 https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8   验证码或api-key电脑端设置指引 https://docs.qq.com/doc/DZFRWeXNaU25Wc2RM?u=355c394f2acc42e4bec073093f2b96f8",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,

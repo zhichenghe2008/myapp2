@@ -217,7 +217,7 @@ export function SideBar(props: { className?: string }) {
             <Link to={Path.Settings}>
               <IconButton
                 icon={<SettingsIcon />}
-                text='配置私有API Key'
+                text='配置私有API Key或验证code'
                 shadow
               />
             </Link>
