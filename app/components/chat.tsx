@@ -811,7 +811,7 @@ export function Chat() {
             ref={inputRef}
             className={styles["chat-input"]}
             // placeholder={Locale.Chat.Input(submitKey)}
-            placeholder='输入 / 获取各种提问样列摸版  点击小熊猫选择各种会话摸版           1:还请及时加入到QQ服务群29898932获取相关服务支持,若站点异常也可及时在群中获取新访问接入点   2:当共享API Key余额不足，可直接配置私有API Key独享使用，配置参考：www.chatgptvip.shop   3:ChatGpt中文调教指南参考www.chatgptvip.shop   4:完全私有化部署独立chatgpt站点（独立域名 独立key 独立授权码 个人定制联系方式 个人定制广告链接等）联系微信h285426134'
+            placeholder='输入 / 获取各种提问样列摸版  点击小熊猫选择各种会话摸版           1:还请及时加入到QQ服务群29898932获取相关服务支持,若站点异常也可及时在群中获取新访问接入点   2:配置验证code参考：www.chatgptvip.shop   3:ChatGpt中文调教指南参考www.chatgptvip.shop   4:完全私有化部署独立chatgpt站点（独立域名 独立key 独立授权码 个人定制联系方式 个人定制广告链接等）联系微信h285426134'
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
             onKeyDown={onInputKeyDown}

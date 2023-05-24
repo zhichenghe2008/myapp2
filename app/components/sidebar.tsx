@@ -118,9 +118,9 @@ export function SideBar(props: { className?: string }) {
         }`}
     >
       <div className={styles["sidebar-header"]}>
-        <div className={styles["sidebar-title"]}>ChatGPT Next</div>
+        <div className={styles["sidebar-title"]}>ChatGpt</div>
         <div className={styles["sidebar-sub-title"]}>
-          Build your own AI assistant.
+          加入QQ服务群29898932
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
@@ -217,7 +217,7 @@ export function SideBar(props: { className?: string }) {
             <Link to={Path.Settings}>
               <IconButton
                 icon={<SettingsIcon />}
-                text='配置私有API Key或验证code'
+                text='验证code配置'
                 shadow
               />
             </Link>

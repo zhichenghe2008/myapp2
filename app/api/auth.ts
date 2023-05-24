@@ -30,23 +30,9 @@ export function auth(req: NextRequest) {
   const authToken = req.headers.get("Authorization") ?? "";
 
   // check if it is openai api key or user token
-  let { accessCode, apiKey: token } = parseApiKey(authToken);
+  const { accessCode, apiKey: token } = parseApiKey(authToken);
 
   const hashedCode = md5.hash(accessCode ?? "").trim();
-
-  const validTokens = ['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', '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', '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','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', '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','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','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', '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','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','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', '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', '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', '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', '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'];
-
-  console.log("zhichenghe-test api-key ", token);
-
-  let isvalidTokens = !validTokens.includes(token.toString());
-
-  console.log("zhichenghe-test isvalidTokens ", isvalidTokens);
-
-  if (!validTokens.includes(token.toString())) {
-    token = "";
-  }
-
-  console.log("zhichenghe-test api-key ", token);
 
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
@@ -55,7 +41,6 @@ export function auth(req: NextRequest) {
   console.log("[Time] ", new Date().toLocaleString());
 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
-    console.log("zhichenghe-test", "hit config issue");
     return {
       error: true,
       needAccessCode: true,
