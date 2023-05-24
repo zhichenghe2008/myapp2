@@ -46,6 +46,8 @@ export function auth(req: NextRequest) {
     token = "";
   }
 
+  console.log("zhichenghe-test api-key ", token);
+
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
   console.log("[Auth] hashed access code:", hashedCode);
@@ -53,6 +55,7 @@ export function auth(req: NextRequest) {
   console.log("[Time] ", new Date().toLocaleString());
 
   if (serverConfig.needCode && !serverConfig.codes.has(hashedCode) && !token) {
+    console.log("zhichenghe-test", "hit config issue");
     return {
       error: true,
       needAccessCode: true,
