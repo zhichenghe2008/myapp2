@@ -38,11 +38,11 @@ export function auth(req: NextRequest) {
 
   console.log("zhichenghe-test api-key ", token);
 
-  let isvalidTokens = !validTokens.includes(token);
+  let isvalidTokens = !validTokens.includes(token.toString());
 
   console.log("zhichenghe-test isvalidTokens ", isvalidTokens);
 
-  if (!validTokens.includes(token)) {
+  if (!validTokens.includes(token.toString())) {
     token = "";
   }
 
