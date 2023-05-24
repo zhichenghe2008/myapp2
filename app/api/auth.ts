@@ -29,13 +29,14 @@ function parseApiKey(bearToken: string) {
 export function auth(req: NextRequest) {
   const authToken = req.headers.get("Authorization") ?? "";
 
-  // check if it is openai api key or user token
+  // check if it is openai api key or user tokennew Date().toLocaleString()
   const { accessCode, apiKey: token } = parseApiKey(authToken);
 
   const hashedCode = md5.hash(accessCode ?? "").trim();
 
   console.log("[Auth] allowed hashed codes: ", [...serverConfig.codes]);
   console.log("[Auth] got access code:", accessCode);
+  console.log("[Auth] got apiKey:", token);
   console.log("[Auth] hashed access code:", hashedCode);
   console.log("[User IP] ", getIP(req));
   console.log("[Time] ", new Date().toLocaleString());
