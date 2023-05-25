@@ -217,7 +217,7 @@ export function SideBar(props: { className?: string }) {
             <Link to={Path.Settings}>
               <IconButton
                 icon={<SettingsIcon />}
-                text='验证code配置'
+                text='访问密码配置'
                 shadow
               />
             </Link>
