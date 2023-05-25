@@ -120,7 +120,7 @@ export function SideBar(props: { className?: string }) {
       <div className={styles["sidebar-header"]}>
         <div className={styles["sidebar-title"]}>ChatGpt</div>
         <div className={styles["sidebar-sub-title"]}>
-          加入QQ服务群29898932 若站点异常可及时在群中获取新接入点
+          添加微信h285426134 若站点异常可及时发送新接入点
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
@@ -178,7 +178,7 @@ export function SideBar(props: { className?: string }) {
         <a href="https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='扫码加入QQ服务群29898932'
+            text='扫码添加微信h285426134'
             shadow
           />
         </a>
