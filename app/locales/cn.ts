@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-    "未授权，手机端访问时请点击上方的返回小箭头找到配置按钮配置访问密码，访问密码购买地址:https://chatgptvip.shop/product/chatgptpass/ 或直接联系微信h285426134购买, 电脑端访问时配置按钮就在界面的左下方， (访问密码手机端配置指引 https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8)   (访问密码电脑端配置指引 https://docs.qq.com/doc/DZFRWeXNaU25Wc2RM?u=355c394f2acc42e4bec073093f2b96f8)     还请及时添加微信h285426134，万一站点异常无法访问时可及时微信发送新的访问点，访问站点遇到任何问题也可微信反馈",
+    "1: 非常抱歉, 本站点免费试用期已结束，需要购买访问密码使用，仅30元即可无限次数使用本站点4个月，访问密码购买地址:https://chatgptvip.shop/product/chatgptpass/ 或直接联系微信h285426134购买.        2:手机端访问时请点击上方的返回小箭头找到配置按钮配置访问密码，电脑端访问时配置按钮就在界面的左下方， (访问密码手机端配置指引 https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8) (访问密码电脑端配置指引 https://docs.qq.com/doc/DZFRWeXNaU25Wc2RM?u=355c394f2acc42e4bec073093f2b96f8)        3:还请及时添加微信h285426134，万一站点异常无法访问时可及时微信发送新的访问点，访问站点遇到任何问题也可微信反馈",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
