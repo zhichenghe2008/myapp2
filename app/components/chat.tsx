@@ -811,7 +811,7 @@ export function Chat() {
             ref={inputRef}
             className={styles["chat-input"]}
             // placeholder={Locale.Chat.Input(submitKey)}
-            placeholder='输入 / 获取各种提问样列摸版  点击小熊猫选择各种会话摸版           1:还请添加微信h285426134获取相关服务支持,若站点异常也可及时发送新访问接入点   2:若有渠道推广此站点，可免费提供独立站点进行推广（独立域名 独立访问密码 个人定制联系方式 个人定制广告链接等）联系微信h285426134    3:另外本站点还上线了通过微信直接调用Midiourney绘图功能,支持中文描述绘图，后台自动翻译为英文描述，无需注册账号，无需魔法上网，有微信即可使用Midiourney，详细点击侧边栏的微信使用Midiourney按钮'
+            placeholder='输入 / 获取各种提问样列摸版  点击小熊猫选择各种会话摸版'
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
             onKeyDown={onInputKeyDown}
