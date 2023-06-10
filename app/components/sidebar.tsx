@@ -176,6 +176,16 @@ export function SideBar(props: { className?: string }) {
         </a>
       </div>
 
+      <div className={styles["sidebar-bar-button"]}>
+        <a href="https://docs.qq.com/doc/DZGJ4clJmWUpYdWZN?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
+          <IconButton
+            icon={<GithubIcon />}
+            text='500元搭建各种独立web站点'
+            shadow
+          />
+        </a>
+      </div>
+
       <div
         className={styles["sidebar-body"]}
         onClick={(e) => {
