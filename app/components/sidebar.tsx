@@ -170,7 +170,7 @@ export function SideBar(props: { className?: string }) {
         <a href="https://www.chatgptvip.shop" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='ChatGpt私有账号购买'
+            text='ChatGpt独享账号购买'
             shadow
           />
         </a>
