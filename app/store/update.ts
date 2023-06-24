@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { FETCH_COMMIT_URL, StoreKey } from "../constant";
-import { api } from "../client/api";
-import { showToast } from "../components/ui-lib";
+import { FETCH_COMMIT_URL, FETCH_TAG_URL, StoreKey } from "../constant";
+import { requestUsage } from "../requests";
 
 export interface UpdateStore {
   lastUpdate: number;
@@ -74,17 +73,10 @@ export const useUpdateStore = create<UpdateStore>()(
           lastUpdateUsage: Date.now(),
         }));
 
-        try {
-          const usage = await api.llm.usage();
+        const usage = await requestUsage();
 
-          if (usage) {
-            set(() => ({
-              used: usage.used,
-              subscription: usage.total,
-            }));
-          }
-        } catch (e) {
-          showToast((e as Error).message);
+        if (usage) {
+          set(() => usage);
         }
       },
     }),

@@ -114,13 +114,14 @@ export function SideBar(props: { className?: string }) {
 
   return (
     <div
-      className={`${styles.sidebar} ${props.className} ${shouldNarrow && styles["narrow-sidebar"]
-        }`}
+      className={`${styles.sidebar} ${props.className} ${
+        shouldNarrow && styles["narrow-sidebar"]
+      }`}
     >
       <div className={styles["sidebar-header"]}>
-        <div className={styles["sidebar-title"]}>ChatGpt</div>
+        <div className={styles["sidebar-title"]}>ChatGPT Next</div>
         <div className={styles["sidebar-sub-title"]}>
-          添加微信h285426134 若站点异常可及时发送新接入点
+          Build your own AI assistant.
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
@@ -130,80 +131,18 @@ export function SideBar(props: { className?: string }) {
       <div className={styles["sidebar-header-bar"]}>
         <IconButton
           icon={<MaskIcon />}
-          // text={shouldNarrow ? undefined : Locale.Mask.Name}
-          text='聊天摸版'
+          text={shouldNarrow ? undefined : Locale.Mask.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
         <IconButton
           icon={<PluginIcon />}
-          // text={shouldNarrow ? undefined : Locale.Plugin.Name}
           text={shouldNarrow ? undefined : Locale.Plugin.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => showToast(Locale.WIP)}
           shadow
         />
-      </div>
-
-      <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZEt6WHdxckhNT1Nt?&u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
-          <IconButton
-            icon={<GithubIcon />}
-            text='ChatGpt提问入门技巧'
-            shadow
-          />
-        </a>
-      </div>
-
-      <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZHZ5UWpLVml6b1Z2?u=e02985a943204438883170077e8f4987" target="_blank">
-          <IconButton
-            icon={<GithubIcon />}
-            text='ChatGpt联网功能使用'
-            shadow
-          />
-        </a>
-      </div>
-
-      <div className={styles["sidebar-bar-button"]}>
-        <a href="https://prm.chatgptvip.info" target="_blank">
-          <IconButton
-            icon={<GithubIcon />}
-            text='ChatGpt提示词工具'
-            shadow
-          />
-        </a>
-      </div>
-
-      <div className={styles["sidebar-bar-button"]}>
-        <a href="https://painted-toucan-5e6.notion.site/ChatGpt-30cbb93b65504c90b3aac21b4e9968ea?pvs=4" target="_blank">
-          <IconButton
-            icon={<GithubIcon />}
-            text='ChatGpt独享账号购买'
-            shadow
-          />
-        </a>
-      </div>
-
-      <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZHJQam5PZG5JelRO?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
-          <IconButton
-            icon={<GithubIcon />}
-            text='微信使用Midjourney绘图'
-            shadow
-          />
-        </a>
-      </div>
-
-      <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZGJ4clJmWUpYdWZN?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
-          <IconButton
-            icon={<GithubIcon />}
-            text='500元搭建各种独立web站点'
-            shadow
-          />
-        </a>
       </div>
 
       <div
@@ -229,25 +168,16 @@ export function SideBar(props: { className?: string }) {
               }}
             />
           </div>
-          {/* <div className={styles["sidebar-action"]}>
+          <div className={styles["sidebar-action"]}>
             <Link to={Path.Settings}>
               <IconButton icon={<SettingsIcon />} shadow />
             </Link>
-          </div> */}
-          <div className={styles["sidebar-action"]}>
-            <Link to={Path.Settings}>
-              <IconButton
-                icon={<SettingsIcon />}
-                text='访问密码配置'
-                shadow
-              />
-            </Link>
           </div>
-          {/* <div className={styles["sidebar-action"]}>
-            <a href="https://chatgptvip.shop/chatgpt%e4%b8%ad%e6%96%87%e8%b0%83%e6%95%99%e6%8c%87%e5%8d%97" target="_blank">
+          <div className={styles["sidebar-action"]}>
+            <a href={REPO_URL} target="_blank">
               <IconButton icon={<GithubIcon />} shadow />
             </a>
-          </div> */}
+          </div>
         </div>
         <div>
           <IconButton

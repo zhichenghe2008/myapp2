@@ -80,7 +80,7 @@ const jp: LocaleType = {
         tr: "Türkçe",
         jp: "日本語",
         de: "Deutsch",
-        vi: "Tiếng Việt",
+        vi: "Vietnamese",
         ru: "Русский",
         cs: "Čeština",
       },

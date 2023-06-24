@@ -23,6 +23,7 @@ import {
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
+import { useMaskStore } from "../store/mask";
 
 export function Loading(props: { noLogo?: boolean }) {
   return (
@@ -63,17 +64,17 @@ export function useSwitchTheme() {
     }
 
     const metaDescriptionDark = document.querySelector(
-      'meta[name="theme-color"][media*="dark"]',
+      'meta[name="theme-color"][media]',
     );
     const metaDescriptionLight = document.querySelector(
-      'meta[name="theme-color"][media*="light"]',
+      'meta[name="theme-color"]:not([media])',
     );
 
     if (config.theme === "auto") {
       metaDescriptionDark?.setAttribute("content", "#151515");
       metaDescriptionLight?.setAttribute("content", "#fafafa");
     } else {
-      const themeColor = getCSSVar("--theme-color");
+      const themeColor = getCSSVar("--themeColor");
       metaDescriptionDark?.setAttribute("content", themeColor);
       metaDescriptionLight?.setAttribute("content", themeColor);
     }
@@ -90,23 +91,11 @@ const useHasHydrated = () => {
   return hasHydrated;
 };
 
-const loadAsyncGoogleFont = () => {
-  const linkEl = document.createElement("link");
-  linkEl.rel = "stylesheet";
-  linkEl.href =
-    "/google-fonts/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap";
-  document.head.appendChild(linkEl);
-};
-
 function Screen() {
   const config = useAppConfig();
   const location = useLocation();
   const isHome = location.pathname === Path.Home;
   const isMobileScreen = useMobileScreen();
-
-  useEffect(() => {
-    loadAsyncGoogleFont();
-  }, []);
 
   return (
     <div

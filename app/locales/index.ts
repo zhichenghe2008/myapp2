@@ -13,8 +13,8 @@ import CS from "./cs";
 export type { LocaleType } from "./cn";
 
 export const AllLangs = [
-  "cn",
   "en",
+  "cn",
   "tw",
   "es",
   "it",
@@ -77,8 +77,8 @@ export function changeLang(lang: Lang) {
 }
 
 export default {
-  cn: CN,
   en: EN,
+  cn: CN,
   tw: TW,
   es: ES,
   it: IT,

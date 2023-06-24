@@ -20,9 +20,11 @@ import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
+import SearchCloseIcon from "../icons/search_close.svg";
+import SearchOpenIcon from "../icons/search_open.svg";
 
 import {
-  ChatMessage,
+  Message,
   SubmitKey,
   useChatStore,
   BOT_HELLO,
@@ -43,7 +45,7 @@ import {
 
 import dynamic from "next/dynamic";
 
-import { ChatControllerPool } from "../client/controller";
+import { ControllerPool } from "../requests";
 import { Prompt, usePromptStore } from "../store/prompt";
 import Locale from "../locales";
 
@@ -63,7 +65,7 @@ const Markdown = dynamic(async () => (await import("./markdown")).Markdown, {
   loading: () => <LoadingIcon />,
 });
 
-function exportMessages(messages: ChatMessage[], topic: string) {
+function exportMessages(messages: Message[], topic: string) {
   const mdText =
     `# ${topic}\n\n` +
     messages
@@ -330,9 +332,15 @@ export function ChatActions(props: {
     config.update((config) => (config.theme = nextTheme));
   }
 
+  // switch web search
+  const webSearch = config.webSearch;
+  function switchWebSearch() {
+    config.update((config) => (config.webSearch = !config.webSearch));
+  }
+
   // stop all responses
-  const couldStop = ChatControllerPool.hasPending();
-  const stopAll = () => ChatControllerPool.stopAll();
+  const couldStop = ControllerPool.hasPending();
+  const stopAll = () => ControllerPool.stopAll();
 
   return (
     <div className={chatStyle["chat-input-actions"]}>
@@ -389,12 +397,22 @@ export function ChatActions(props: {
       >
         <MaskIcon />
       </div>
+      <div
+        className={`${chatStyle["chat-input-action"]} clickable`}
+        onClick={switchWebSearch}
+      >
+        {webSearch ? (
+          <SearchOpenIcon />
+        ) : !webSearch ? (
+          <SearchCloseIcon />
+        ) : null}
+      </div>
     </div>
   );
 }
 
 export function Chat() {
-  type RenderMessage = ChatMessage & { preview?: boolean };
+  type RenderMessage = Message & { preview?: boolean };
 
   const chatStore = useChatStore();
   const [session, sessionIndex] = useChatStore((state) => [
@@ -477,7 +495,9 @@ export function Chat() {
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "") return;
     setIsLoading(true);
-    chatStore.onUserInput(userInput).then(() => setIsLoading(false));
+    chatStore
+      .onUserInput(userInput, config.webSearch)
+      .then(() => setIsLoading(false));
     localStorage.setItem(LAST_INPUT_KEY, userInput);
     setUserInput("");
     setPromptHints([]);
@@ -487,7 +507,7 @@ export function Chat() {
 
   // stop response
   const onUserStop = (messageId: number) => {
-    ChatControllerPool.stop(sessionIndex, messageId);
+    ControllerPool.stop(sessionIndex, messageId);
   };
 
   // check if should send message
@@ -507,7 +527,7 @@ export function Chat() {
       e.preventDefault();
     }
   };
-  const onRightClick = (e: any, message: ChatMessage) => {
+  const onRightClick = (e: any, message: Message) => {
     // copy to clipboard
     if (selectOrCopy(e.currentTarget, message.content)) {
       e.preventDefault();
@@ -550,7 +570,9 @@ export function Chat() {
     setIsLoading(true);
     const content = session.messages[userIndex].content;
     deleteMessage(userIndex);
-    chatStore.onUserInput(content).then(() => setIsLoading(false));
+    chatStore
+      .onUserInput(content, config.webSearch)
+      .then(() => setIsLoading(false));
     inputRef.current?.focus();
   };
 
@@ -811,7 +833,7 @@ export function Chat() {
             ref={inputRef}
             className={styles["chat-input"]}
             // placeholder={Locale.Chat.Input(submitKey)}
-            placeholder='输入 / 获取各种提问样列摸版  点击小熊猫选择各种会话摸版'
+            placeholder='输入 / 获取各种提问样列摸版  点击小熊猫选择各种会话摸版 点击互联网图标开启联网功能'
             onInput={(e) => onInput(e.currentTarget.value)}
             value={userInput}
             onKeyDown={onInputKeyDown}

@@ -1,6 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { type ChatCompletionResponseMessage } from "openai";
+import {
+  ControllerPool,
+  requestChatStream,
+  requestWebSearch,
+  requestWithPrompt,
+} from "../requests";
 import { trimTopic } from "../utils";
 
 import Locale from "../locales";
@@ -8,27 +15,28 @@ import { showToast } from "../components/ui-lib";
 import { ModelType } from "./config";
 import { createEmptyMask, Mask } from "./mask";
 import { StoreKey } from "../constant";
-import { api, RequestMessage } from "../client/api";
-import { ChatControllerPool } from "../client/controller";
-import { prettyObject } from "../utils/format";
 
-export type ChatMessage = RequestMessage & {
+export type Message = ChatCompletionResponseMessage & {
   date: string;
   streaming?: boolean;
   isError?: boolean;
   id?: number;
   model?: ModelType;
+  webContent?: string;
 };
 
-export function createMessage(override: Partial<ChatMessage>): ChatMessage {
+export function createMessage(override: Partial<Message>): Message {
   return {
     id: Date.now(),
     date: new Date().toLocaleString(),
     role: "user",
     content: "",
+    webContent: undefined,
     ...override,
   };
 }
+
+export const ROLES: Message["role"][] = ["system", "user", "assistant"];
 
 export interface ChatStat {
   tokenCount: number;
@@ -42,7 +50,7 @@ export interface ChatSession {
   topic: string;
 
   memoryPrompt: string;
-  messages: ChatMessage[];
+  messages: Message[];
   stat: ChatStat;
   lastUpdate: number;
   lastSummarizeIndex: number;
@@ -51,7 +59,7 @@ export interface ChatSession {
 }
 
 export const DEFAULT_TOPIC = Locale.Store.DefaultTopic;
-export const BOT_HELLO: ChatMessage = createMessage({
+export const BOT_HELLO: Message = createMessage({
   role: "assistant",
   content: Locale.Store.BotHello,
 });
@@ -83,24 +91,24 @@ interface ChatStore {
   newSession: (mask?: Mask) => void;
   deleteSession: (index: number) => void;
   currentSession: () => ChatSession;
-  onNewMessage: (message: ChatMessage) => void;
-  onUserInput: (content: string) => Promise<void>;
+  onNewMessage: (message: Message) => void;
+  onUserInput: (content: string, isWebSearch: boolean) => Promise<void>;
   summarizeSession: () => void;
-  updateStat: (message: ChatMessage) => void;
+  updateStat: (message: Message) => void;
   updateCurrentSession: (updater: (session: ChatSession) => void) => void;
   updateMessage: (
     sessionIndex: number,
     messageIndex: number,
-    updater: (message?: ChatMessage) => void,
+    updater: (message?: Message) => void,
   ) => void;
   resetSession: () => void;
-  getMessagesWithMemory: () => ChatMessage[];
-  getMemoryPrompt: () => ChatMessage;
+  getMessagesWithMemory: () => Message[];
+  getMemoryPrompt: () => Message;
 
   clearAllData: () => void;
 }
 
-function countMessages(msgs: ChatMessage[]) {
+function countMessages(msgs: Message[]) {
   return msgs.reduce((pre, cur) => pre + cur.content.length, 0);
 }
 
@@ -231,16 +239,16 @@ export const useChatStore = create<ChatStore>()(
         get().summarizeSession();
       },
 
-      async onUserInput(content) {
+      async onUserInput(content, isWebSearch) {
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
-
-        const userMessage: ChatMessage = createMessage({
+        console.log(1);
+        const userMessage: Message = createMessage({
           role: "user",
           content,
         });
 
-        const botMessage: ChatMessage = createMessage({
+        const botMessage: Message = createMessage({
           role: "assistant",
           streaming: true,
           id: userMessage.id! + 1,
@@ -249,7 +257,7 @@ export const useChatStore = create<ChatStore>()(
 
         const systemInfo = createMessage({
           role: "system",
-          content: `IMPORTANT: You are a virtual assistant powered by the ${
+          content: `IMPRTANT: You are a virtual assistant powered by the ${
             modelConfig.model
           } model, now time is ${new Date().toLocaleString()}}`,
           id: botMessage.id! + 1,
@@ -267,59 +275,80 @@ export const useChatStore = create<ChatStore>()(
         // save user's and bot's message
         get().updateCurrentSession((session) => {
           session.messages.push(userMessage);
+        });
+        if (isWebSearch) {
+          const query = encodeURIComponent(content);
+          const body = await requestWebSearch(query);
+          const webSearchPrompt = `
+Using the provided web search results, write a comprehensive reply to the given query.
+If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.
+Make sure to cite results using \`[[number](URL)]\` notation after the reference.
+
+Web search json results:
+"""
+${JSON.stringify(body)}
+"""
+
+Current date:
+"""
+${new Date().toISOString()}
+"""
+
+Query:
+"""
+${content}
+"""
+
+Reply in Chinese and markdown.
+          `;
+          console.log(webSearchPrompt);
+          userMessage.webContent = webSearchPrompt;
+        }
+        // save user's and bot's message
+        get().updateCurrentSession((session) => {
           session.messages.push(botMessage);
         });
-
         // make request
         console.log("[User Input] ", sendMessages);
-        api.llm.chat({
-          messages: sendMessages,
-          config: { ...modelConfig, stream: true },
-          onUpdate(message) {
-            botMessage.streaming = true;
-            botMessage.content = message;
-            set(() => ({}));
+        requestChatStream(sendMessages, {
+          onMessage(content, done) {
+            // stream response
+            if (done) {
+              botMessage.streaming = false;
+              botMessage.content = content;
+              get().onNewMessage(botMessage);
+              ControllerPool.remove(
+                sessionIndex,
+                botMessage.id ?? messageIndex,
+              );
+            } else {
+              botMessage.content = content;
+              set(() => ({}));
+            }
           },
-          onFinish(message) {
-            botMessage.streaming = false;
-            botMessage.content = message;
-            get().onNewMessage(botMessage);
-            ChatControllerPool.remove(
-              sessionIndex,
-              botMessage.id ?? messageIndex,
-            );
-            set(() => ({}));
-          },
-          onError(error) {
+          onError(error, statusCode) {
             const isAborted = error.message.includes("aborted");
-            if (
-              botMessage.content !== Locale.Error.Unauthorized &&
-              !isAborted
-            ) {
+            if (statusCode === 401) {
+              botMessage.content = Locale.Error.Unauthorized;
+            } else if (!isAborted) {
               botMessage.content += "\n\n" + Locale.Store.Error;
-            } else if (botMessage.content.length === 0) {
-              botMessage.content = prettyObject(error);
             }
             botMessage.streaming = false;
             userMessage.isError = !isAborted;
             botMessage.isError = !isAborted;
 
             set(() => ({}));
-            ChatControllerPool.remove(
-              sessionIndex,
-              botMessage.id ?? messageIndex,
-            );
-
-            console.error("[Chat] error ", error);
+            ControllerPool.remove(sessionIndex, botMessage.id ?? messageIndex);
           },
           onController(controller) {
             // collect controller for stop/retry
-            ChatControllerPool.addController(
+            ControllerPool.addController(
               sessionIndex,
               botMessage.id ?? messageIndex,
               controller,
             );
           },
+          modelConfig: { ...modelConfig },
         });
       },
 
@@ -333,7 +362,7 @@ export const useChatStore = create<ChatStore>()(
               ? Locale.Store.Prompt.History(session.memoryPrompt)
               : "",
           date: "",
-        } as ChatMessage;
+        } as Message;
       },
 
       getMessagesWithMemory() {
@@ -388,7 +417,7 @@ export const useChatStore = create<ChatStore>()(
       updateMessage(
         sessionIndex: number,
         messageIndex: number,
-        updater: (message?: ChatMessage) => void,
+        updater: (message?: Message) => void,
       ) {
         const sessions = get().sessions;
         const session = sessions.at(sessionIndex);
@@ -407,38 +436,24 @@ export const useChatStore = create<ChatStore>()(
       summarizeSession() {
         const session = get().currentSession();
 
-        // remove error messages if any
-        const cleanMessages = session.messages.filter((msg) => !msg.isError);
-
         // should summarize topic after chating more than 50 words
         const SUMMARIZE_MIN_LEN = 50;
         if (
           session.topic === DEFAULT_TOPIC &&
-          countMessages(cleanMessages) >= SUMMARIZE_MIN_LEN
+          countMessages(session.messages) >= SUMMARIZE_MIN_LEN
         ) {
-          const topicMessages = cleanMessages.concat(
-            createMessage({
-              role: "user",
-              content: Locale.Store.Prompt.Topic,
-            }),
-          );
-          api.llm.chat({
-            messages: topicMessages,
-            config: {
-              model: "gpt-3.5-turbo",
-            },
-            onFinish(message) {
-              get().updateCurrentSession(
-                (session) =>
-                  (session.topic =
-                    message.length > 0 ? trimTopic(message) : DEFAULT_TOPIC),
-              );
-            },
+          requestWithPrompt(session.messages, Locale.Store.Prompt.Topic, {
+            model: "gpt-3.5-turbo-0613",
+          }).then((res) => {
+            get().updateCurrentSession(
+              (session) =>
+                (session.topic = res ? trimTopic(res) : DEFAULT_TOPIC),
+            );
           });
         }
 
         const modelConfig = session.mask.modelConfig;
-        let toBeSummarizedMsgs = cleanMessages.slice(
+        let toBeSummarizedMsgs = session.messages.slice(
           session.lastSummarizeIndex,
         );
 
@@ -467,24 +482,26 @@ export const useChatStore = create<ChatStore>()(
           historyMsgLength > modelConfig.compressMessageLengthThreshold &&
           session.mask.modelConfig.sendMemory
         ) {
-          api.llm.chat({
-            messages: toBeSummarizedMsgs.concat({
+          requestChatStream(
+            toBeSummarizedMsgs.concat({
               role: "system",
               content: Locale.Store.Prompt.Summarize,
               date: "",
             }),
-            config: { ...modelConfig, stream: true },
-            onUpdate(message) {
-              session.memoryPrompt = message;
+            {
+              overrideModel: "gpt-3.5-turbo-0613",
+              onMessage(message, done) {
+                session.memoryPrompt = message;
+                if (done) {
+                  console.log("[Memory] ", session.memoryPrompt);
+                  session.lastSummarizeIndex = lastSummarizeIndex;
+                }
+              },
+              onError(error) {
+                console.error("[Summarize] ", error);
+              },
             },
-            onFinish(message) {
-              console.log("[Memory] ", message);
-              session.lastSummarizeIndex = lastSummarizeIndex;
-            },
-            onError(err) {
-              console.error("[Summarize] ", err);
-            },
-          });
+          );
         }
       },
 

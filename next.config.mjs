@@ -10,10 +10,6 @@ const nextConfig = {
         source: "/api/proxy/:path*",
         destination: "https://api.openai.com/:path*",
       },
-      {
-        source: "/google-fonts/:path*",
-        destination: "https://fonts.googleapis.com/:path*",
-      },
     ];
 
     const apiUrl = process.env.API_URL;
