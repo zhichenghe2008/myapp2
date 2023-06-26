@@ -187,10 +187,10 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZHJQam5PZG5JelRO?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
+        <a href="https://docs.qq.com/doc/p/0ac6d0eceb0fd83f4eb9cde4904897f32310d7e4?u=23e2e15f472c4060ae38ffeb78b05cd2" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='微信使用Midjourney绘图'
+            text='企业独立ChatGpt站点'
             shadow
           />
         </a>
