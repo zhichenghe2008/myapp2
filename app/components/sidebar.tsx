@@ -200,7 +200,7 @@ export function SideBar(props: { className?: string }) {
         <a href="https://docs.qq.com/doc/DZGJ4clJmWUpYdWZN?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='500元搭建各种独立web站点'
+            text='500元搭建企业官网'
             shadow
           />
         </a>
