@@ -5,7 +5,7 @@ const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized:
-    "1: 非常抱歉, 本站点免费试用期已结束，需购买访问密码使用，仅40元即可无限次数使用本站点4个月，添加微信h285426134购买. 2：本站点支持非常牛逼的ChatGpt联网查询功能，相当于打通ChatGpt的任督二脉，详情查看：https://docs.qq.com/doc/DZHZ5UWpLVml6b1Z2?u=e02985a943204438883170077e8f4987 3:手机端访问时请点击上方的返回小箭头找到配置按钮配置访问密码，电脑端访问时配置按钮就在界面的左下方，(访问密码手机端配置指引https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8)(访问密码电脑端配置指引https://docs.qq.com/doc/DZFRWeXNaU25Wc2RM?u=355c394f2acc42e4bec073093f2b96f8)",
+    "1: 非常抱歉, 本站点免费试用期已结束，40元即可无限次数使用本站点4个月，100元可无限次数使用本站点1年且免费开通价值80元的AI知识库访问权限 详情添加微信h285426134. 2：AI知识库访问指引：AI知识库访问指引 3:访问密码配置指引：https://docs.qq.com/doc/DZElpcG9lWERGd1dw?u=355c394f2acc42e4bec073093f2b96f8",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
