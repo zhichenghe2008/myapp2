@@ -147,47 +147,47 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZEt6WHdxckhNT1Nt?&u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/XwOLwvPoViRbgYkesEbcGc8Nncb" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='ChatGpt提问入门技巧'
+            text='ChatGPT提问入门指南'
             shadow
           />
         </a>
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZHZ5UWpLVml6b1Z2?u=e02985a943204438883170077e8f4987" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/XlyDwn3rdi6Y0Fkb6kUcRzf6nkg" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='ChatGpt联网功能使用'
+            text='AI知识库访问(持续更新）'
             shadow
           />
         </a>
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://a5muyfw7ic.feishu.cn/docx/J4jhdXmnyolpUjxp14Ac2QPon6f" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/OA0XwHFoVieVH4kXfsfcGEM2n5b" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='AI知识库访问指引'
+            text='AI工具保姆级指导书(持续更新）'
             shadow
           />
         </a>
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://painted-toucan-5e6.notion.site/ChatGpt-30cbb93b65504c90b3aac21b4e9968ea?pvs=4" target="_blank">
+        <a href="https://prm.chatgptvip.info/" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='ChatGpt独享账号购买'
+            text='ChatGPT 提示词工具'
             shadow
           />
         </a>
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZEh6TmdZY3JIU2d1?u=23e2e15f472c4060ae38ffeb78b05cd2" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/Cq8ywC9t6ib59SkLYkjcUNw9ntd" target="_blank">
           <IconButton
             icon={<GithubIcon />}
             text='企业独立ChatGpt站点'
@@ -197,7 +197,7 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://docs.qq.com/doc/DZGJ4clJmWUpYdWZN?u=355c394f2acc42e4bec073093f2b96f8" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/SYVUwUhAViLxFRkuSQKcvQx9nQe" target="_blank">
           <IconButton
             icon={<GithubIcon />}
             text='500元搭建企业官网或外贸独立站'
