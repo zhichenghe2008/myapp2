@@ -5,7 +5,7 @@ const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized:
-    "1: 非常抱歉, 本站点免费试用期已结束，40元即可无限次数使用本站点4个月，100元可无限次数使用本站点1年且可提供个人定制独立站点 详情添加微信h285426134. 2：AI知识库访问(持续更新）https://test-cr534q4ghsv6.feishu.cn/wiki/XlyDwn3rdi6Y0Fkb6kUcRzf6nkg 3:访问密码配置指引：https://test-cr534q4ghsv6.feishu.cn/wiki/DyKgwl49Gi36r4kPnRvcEM7Anxc",
+    "1: 非常抱歉, 本站点免费试用期已结束，100元可无限次数使用本站点1年 详情添加微信h285426134. 2：AI知识库访问(持续更新）https://test-cr534q4ghsv6.feishu.cn/wiki/XlyDwn3rdi6Y0Fkb6kUcRzf6nkg 3:访问密码配置指引：https://test-cr534q4ghsv6.feishu.cn/wiki/DyKgwl49Gi36r4kPnRvcEM7Anxc",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,

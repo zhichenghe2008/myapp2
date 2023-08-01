@@ -157,7 +157,7 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/XlyDwn3rdi6Y0Fkb6kUcRzf6nkg" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/QNzjwl2mdifCGDkz2gBcegXln0b" target="_blank">
           <IconButton
             icon={<GithubIcon />}
             text='AI知识库访问(持续更新）'
