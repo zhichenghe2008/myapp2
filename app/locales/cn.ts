@@ -4,7 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-    "1: 非常抱歉, 本站点免费试用期已结束，100元可无限次数使用本站点1年 详情添加微信h285426134. 2：AI知识库访问(持续更新）https://test-cr534q4ghsv6.feishu.cn/wiki/XlyDwn3rdi6Y0Fkb6kUcRzf6nkg 3:访问密码配置指引：https://test-cr534q4ghsv6.feishu.cn/wiki/DyKgwl49Gi36r4kPnRvcEM7Anxc",
+    "1: 非常抱歉, 本站点免费试用期已结束，100元可无限次数使用本站点1年 详情添加微信h285426134. 2:访问密码配置指引：https://test-cr534q4ghsv6.feishu.cn/wiki/DyKgwl49Gi36r4kPnRvcEM7Anxc",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
