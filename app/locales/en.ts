@@ -5,7 +5,7 @@ const en: LocaleType = {
   WIP: "Coming Soon...",
   Error: {
     Unauthorized:
-    "1: 非常抱歉, 本站点免费试用期已结束，100元可无限次数使用本站点1年 详情添加微信h285426134. 2:访问密码配置指引：https://test-cr534q4ghsv6.feishu.cn/wiki/DyKgwl49Gi36r4kPnRvcEM7Anxc",
+    "1: 非常抱歉, 本站点免费试用期已结束，200元可无限次数使用本站点1年 详情添加微信h285426134. 2:访问密码配置指引：https://test-cr534q4ghsv6.feishu.cn/wiki/DyKgwl49Gi36r4kPnRvcEM7Anxc",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
