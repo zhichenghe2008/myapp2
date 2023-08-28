@@ -187,10 +187,10 @@ export function SideBar(props: { className?: string }) {
       </div>
 
       <div className={styles["sidebar-bar-button"]}>
-        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/Cq8ywC9t6ib59SkLYkjcUNw9ntd" target="_blank">
+        <a href="https://test-cr534q4ghsv6.feishu.cn/wiki/BJY1wzGSoimPbLkEHuBcFO2InSf" target="_blank">
           <IconButton
             icon={<GithubIcon />}
-            text='企业独立ChatGpt站点'
+            text='ChatGPT 4.0站点访问'
             shadow
           />
         </a>
